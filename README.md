@@ -1,4 +1,4 @@
-# KYC
+# Contacts updater
 
 
 This repository contains a web service for searching contacts by full text. The service allows users to search for contacts based on a given keyword. The API endpoint provided by the service returns search results in JSON format. The contact information is refreshed every 12 hours.
