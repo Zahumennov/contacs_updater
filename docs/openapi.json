@@ -1,0 +1,95 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Contact Search API",
+    "version": "1.0.0",
+    "description": "This API allows searching contacts by full text based on a given keyword. The keyword must have a minimum length of 1 character.\n"
+  },
+  "paths": {
+    "/contacts/": {
+      "get": {
+        "summary": "Search Contacts by Full Text",
+        "description": "This endpoint allows searching contacts based on a given keyword that must have a minimum length of 1 character.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "keyword",
+            "required": true,
+            "description": "The search keyword used to find contacts.",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResults"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "description": "The error message indicating the failure."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The unique identifier of the contact."
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the contact."
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the contact."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The email address of the contact."
+          }
+        }
+      },
+      "SearchResults": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "description": "An array of contact objects containing search results.",
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            }
+          }
+        }
+      }
+    }
+  }
+}
